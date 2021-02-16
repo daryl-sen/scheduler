@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "components/Application.scss";
 import Button from "components/Button";
 import DayListItem from "components/DayListItem";
@@ -24,6 +24,9 @@ const days = [
 ];
 
 export default function Application(props) {
+
+  const [selectedDay, setSelectedDay] = useState('Monday');
+
   return (
     <main className="layout">
       <section className="sidebar">
