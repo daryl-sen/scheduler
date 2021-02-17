@@ -8,7 +8,10 @@ export default function Appointment(props) {
   const renderSlot = () => {
     if (props.interview) {
       return (
-        <Show />
+        <Show
+          student='Lydia Miller-Jones'
+          interviewer='Sylvia Palmer'
+        />
       )
     } else {
       return (
