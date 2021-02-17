@@ -9,8 +9,8 @@ export default function Appointment(props) {
     if (props.interview) {
       return (
         <Show
-          student='Lydia Miller-Jones'
-          interviewer='Sylvia Palmer'
+          student={props.interview.student}
+          interviewer={props.interview.interviewer.name}
         />
       )
     } else {
