@@ -5,6 +5,8 @@ import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from 'components/Appointment';
 import axios from 'axios';
+import getAppointmentsForDay from 'helpers/selectors';
+
 
 
 
@@ -16,7 +18,7 @@ export default function Application(props) {
     appointments: {}
   });
 
-  const dailyAppointments = [];
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
   
   const formatedAppointments = dailyAppointments.map((item) => {
     return (
@@ -27,9 +29,7 @@ export default function Application(props) {
     );
   });
 
-  const getAppointmentsForDay = function(state, day) {
-
-  };
+  
 
   const setDay = (day) => {
     setState((prev) => ({ ...prev, day }));
