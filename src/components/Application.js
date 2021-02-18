@@ -85,12 +85,11 @@ export default function Application(props) {
   };
 
   const setDay = (day) => {
-    setState({...state, day});
+    setState((prev) => ({ ...prev, day }));
   };
 
   const setDays = (days) => {
-    // setState({...state, days});
-    setState(prev => ({ ...prev, days }));
+    setState((prev) => ({ ...prev, days }));
   };
 
   useEffect(() => {
@@ -115,7 +114,7 @@ export default function Application(props) {
         <nav className="sidebar__menu">
         <DayList
           days={state.days}
-          day={"Monday"}
+          day={state.day}
           setDay={setDay}
         />
         </nav>
