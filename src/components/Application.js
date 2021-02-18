@@ -77,6 +77,10 @@ export default function Application(props) {
     );
   });
 
+  const getAppointmentsForDay = function(state, day) {
+    
+  };
+
   useEffect(() => {
     const url = 'http://localhost:8001/api/days';
     axios.get(url)
