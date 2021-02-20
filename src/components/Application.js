@@ -49,7 +49,7 @@ export default function Application(props) {
   }
 
   const save = function(name, interviewer) {
-    console.log('save function from application.js');
+    console.log(`save function from application.js, name: ${name}, interviewer: ${interviewer}`);
     const interview = {
       student: name,
       interviewer
