@@ -67,26 +67,27 @@ export default function Application(props) {
   const formatedAppointments = dailyAppointments.map((item) => {
     // console.log('item: ', item); // gives an obj with id, time, interview
 
+
     let interviewerName;
 
     if (item.interview !== null) {
-      console.log('interviewer found');
       const interviewerID = item.interview.interviewer;
       interviewerName = state.interviewers[interviewerID].name;
     } else {
-      console.log('no interviewer');
       interviewerName = null;
     }
 
-    console.log(interviewerName);
+
 
     return (
       <Appointment
         key={item.id}
+        id={item.id}
         bookInterview={bookInterview}
         save={save}
         cancel={cancel}
         interviewer={interviewerName}
+        interviewers={interviewersForDay}
         {...item}
       />
     );
