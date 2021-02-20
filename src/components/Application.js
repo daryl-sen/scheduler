@@ -11,31 +11,6 @@ import {getAppointmentsForDay, getInterviewersForDay} from 'helpers/selectors';
 
 
 export default function Application(props) {
-  
-  const [state, setState] = useState({
-    day: 'Monday',
-    days: [],
-    appointments: {}
-  });
-
-  const dailyAppointments = getAppointmentsForDay(state, state.day);
-
-  const interviewersForDay = getInterviewersForDay(state, state.day);
-  
-  const formatedAppointments = dailyAppointments.map((item) => {
-    return (
-      <Appointment
-        key={item.id}
-        {...item}
-      />
-    );
-  });
-
-  
-
-  const setDay = (day) => {
-    setState((prev) => ({ ...prev, day }));
-  };
 
   useEffect(() => {
     const daysURL = 'http://localhost:8001/api/days';
@@ -49,7 +24,7 @@ export default function Application(props) {
     ])
       .then((all) => {
         const [days, appointments, interviewers] = all;
-        console.log(interviewers);
+        // console.log(interviewers);
         setState((prev) => {
           return {...prev, days: days.data, appointments: appointments.data, interviewers: interviewers.data };
         });
@@ -59,8 +34,51 @@ export default function Application(props) {
       });
 
   }, []);
+  
+  const [state, setState] = useState({
+    day: 'Monday',
+    days: [],
+    appointments: {}
+  });
 
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
+  const interviewersForDay = getInterviewersForDay(state, state.day);
 
+  const bookInterview = function(id, interview) {
+
+  }
+
+  const save = function(name, interviewer) {
+    console.log('save function from application.js');
+    const interview = {
+      student: name,
+      interviewer
+    };
+  }
+
+  const cancel = function() {
+    console.log('cancel from application.js');
+  };
+
+  const setDay = (day) => {
+    setState((prev) => ({ ...prev, day }));
+  };
+
+  const formatedAppointments = dailyAppointments.map((item) => {
+    return (
+      <Appointment
+        key={item.id}
+        bookInterview={bookInterview}
+        save={save}
+        cancel={cancel}
+        {...item}
+      />
+    );
+  });
+
+  formatedAppointments.push((
+    <Appointment key="last" time="5pm" bookInterview={bookInterview} save={save} cancel={cancel} /> 
+  ));
 
   return (
     <main className="layout">
@@ -86,7 +104,6 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         { formatedAppointments }
-        <Appointment key="last" time="5pm" />
       </section>
     </main>
   );
