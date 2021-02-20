@@ -6,7 +6,7 @@ export default function Form(props) {
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
 
-  console.log('Form props:', props.onSave);
+  // console.log('Form props:', props.onSave);
 
   const reset = function() {
     setName("");
@@ -14,7 +14,7 @@ export default function Form(props) {
   };
 
   const cancel = function() {
-    console.log('cancel function just ran');
+    // console.log('cancel function just ran');
     reset();
     props.onCancel();
   }

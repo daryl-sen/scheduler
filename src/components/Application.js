@@ -65,6 +65,12 @@ export default function Application(props) {
   };
 
   const formatedAppointments = dailyAppointments.map((item) => {
+    if (item.interview !== null) {
+      // console.log(interviewersForDay);
+      // const interviewer = interviewersForDay[item.interview.interviewer];
+      // console.log('interviewer:', item.interview.interviewer);
+      // console.log('item:', item);
+    }
     return (
       <Appointment
         key={item.id}
