@@ -5,6 +5,7 @@ import Show from 'components/Appointment/Show';
 import Empty from 'components/Appointment/Empty';
 import {useVisualMode} from 'hooks/useVisualMode';
 import Form from 'components/Appointment/Form';
+import Status from 'components/Appointment/Status';
 
 
 export default function Appointment(props) {
@@ -12,6 +13,7 @@ export default function Appointment(props) {
   const EMPTY = 'EMPTY';
   const SHOW = 'SHOW';
   const CREATE = 'CREATE';
+  const SAVING = 'SAVING';
 
   // console.log('appointment props:', props);
 
@@ -29,6 +31,7 @@ export default function Appointment(props) {
       student: studentName,
       interviewer
     };
+    transition(SAVING);
     props.bookInterview(interviewID, interview)
       .then(() => {
         transition(SHOW);
@@ -41,22 +44,26 @@ export default function Appointment(props) {
         time={props.time}
       />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-      {mode === SHOW && (
+      {mode === SHOW &&
         <Show
           student={props.interview.student}
           interviewer={props.interviewer}
         />
-      )}
+      }
       {mode === CREATE &&
-      <Form
-        interviewers = {props.interviewers}
-        onSave={props.save}
-        onCancel={props.cancel}
-        interviewID={props.id}
-        interviewer={props.interviewer}
-        interview={props.interview}
-        onSave={save}
-      />}
+        <Form
+          interviewers = {props.interviewers}
+          onSave={props.save}
+          onCancel={props.cancel}
+          interviewID={props.id}
+          interviewer={props.interviewer}
+          interview={props.interview}
+          onSave={save}
+        />
+      }
+      {mode === SAVING &&
+        <Status message={'SAVING....'}/>
+      }
     </article>
   );
 };
