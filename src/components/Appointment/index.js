@@ -19,6 +19,15 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
+  const save = function(name, interviewer) {
+    // console.log(`save function from index.js, name: ${name}, interviewer: ${interviewer}`);
+    // useVisualMode('SHOW');
+    const interview = {
+      student: name,
+      interviewer
+    };
+  }
+
   return (
     <article className="appointment">
       <Header
@@ -38,6 +47,7 @@ export default function Appointment(props) {
         onCancel={props.cancel}
         interviewID={props.id}
         interviewer={props.interviewer}
+        onSave={save}
       />}
     </article>
   );

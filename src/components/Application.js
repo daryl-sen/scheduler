@@ -6,6 +6,7 @@ import DayList from "components/DayList";
 import Appointment from 'components/Appointment';
 import axios from 'axios';
 import {getAppointmentsForDay, getInterviewersForDay} from 'helpers/selectors';
+import {useVisualMode} from "hooks/useVisualMode";
 
 
 
@@ -45,15 +46,19 @@ export default function Application(props) {
   const interviewersForDay = getInterviewersForDay(state, state.day);
 
   const bookInterview = function(id, interview) {
-
-  }
-
-  const save = function(name, interviewer) {
-    console.log(`save function from application.js, name: ${name}, interviewer: ${interviewer}`);
-    const interview = {
-      student: name,
-      interviewer
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
     };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    setState({
+      ...state,
+      appointment
+    });
+    console.log('updated state:', state);
   }
 
   const cancel = function() {
@@ -84,7 +89,6 @@ export default function Application(props) {
         key={item.id}
         id={item.id}
         bookInterview={bookInterview}
-        save={save}
         cancel={cancel}
         interviewer={interviewerName}
         interviewers={interviewersForDay}
@@ -94,7 +98,7 @@ export default function Application(props) {
   });
 
   formatedAppointments.push((
-    <Appointment key="last" time="5pm" bookInterview={bookInterview} save={save} cancel={cancel} /> 
+    <Appointment key="last" time="5pm" bookInterview={bookInterview} cancel={cancel} /> 
   ));
 
   return (
