@@ -11,31 +11,7 @@ import {getAppointmentsForDay, getInterviewersForDay} from 'helpers/selectors';
 
 
 export default function Application(props) {
-  
-  const [state, setState] = useState({
-    day: 'Monday',
-    days: [],
-    appointments: {}
-  });
-
-  const dailyAppointments = getAppointmentsForDay(state, state.day);
-
-  const interviewersForDay = getInterviewersForDay(state, state.day);
-  
-  const formatedAppointments = dailyAppointments.map((item) => {
-    return (
-      <Appointment
-        key={item.id}
-        {...item}
-      />
-    );
-  });
-
-  
-
-  const setDay = (day) => {
-    setState((prev) => ({ ...prev, day }));
-  };
+  console.log('refreshed');
 
   useEffect(() => {
     const daysURL = 'http://localhost:8001/api/days';
@@ -49,9 +25,9 @@ export default function Application(props) {
     ])
       .then((all) => {
         const [days, appointments, interviewers] = all;
-        console.log(interviewers);
+        // console.log(interviewers);
         setState((prev) => {
-          return {...prev, days: days.data, appointments: appointments.data, interviewers: interviewers.data };
+            return {...prev, days: days.data, appointments: appointments.data, interviewers: interviewers.data };
         });
       })
       .catch((err) => {
@@ -59,8 +35,88 @@ export default function Application(props) {
       });
 
   }, []);
+  
+  const [state, setState] = useState({
+    day: 'Monday',
+    days: [],
+    appointments: {}
+  });
+
+  // console.log('fresh state:', state);
+
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
+  const interviewersForDay = getInterviewersForDay(state, state.day);
+
+  const bookInterview = function(id, interview) {
+    console.log(`Received Params: {id: ${id}}, interview: ${interview}`);
+
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    return axios.put(`http://localhost:8001/api/appointments/${id}`, appointment)
+      .then((resp) => {
+        console.log(resp);
+
+        console.log('updated list on page');
+        
+        // console.log('stale state:', state);
+
+        // this will not run until later
+        setState((prev) => {
+          console.log('current state', prev);
+          console.log('updated state', {...prev, appointments});
+          return {
+            ...prev,
+            appointments
+          }
+        });
+      }) 
+  }
+
+  const cancel = function() {
+    console.log('cancel from application.js');
+  };
+
+  const setDay = (day) => {
+    setState((prev) => ({ ...prev, day }));
+  };
+
+  const formatedAppointments = dailyAppointments.map((item) => {
+    // console.log('item: ', item); // gives an obj with id, time, interview
+
+    let interviewerName;
+
+    if (item.interview !== null) {
+      const interviewerID = item.interview.interviewer;
+      interviewerName = state.interviewers[interviewerID].name;
+    } else {
+      interviewerName = null;
+    }
 
 
+
+    return (
+      <Appointment
+        key={item.id}
+        id={item.id}
+        bookInterview={bookInterview}
+        cancel={cancel}
+        interviewer={interviewerName}
+        interviewers={interviewersForDay}
+        {...item}
+      />
+    );
+  });
+
+  formatedAppointments.push((
+    <Appointment key="last" time="5pm" bookInterview={bookInterview} cancel={cancel} /> 
+  ));
 
   return (
     <main className="layout">
@@ -86,7 +142,6 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         { formatedAppointments }
-        <Appointment key="last" time="5pm" />
       </section>
     </main>
   );
