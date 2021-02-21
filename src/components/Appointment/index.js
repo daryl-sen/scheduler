@@ -15,17 +15,22 @@ export default function Appointment(props) {
 
   // console.log('appointment props:', props);
 
-  const { mode, transition, back } = useVisualMode(
-    props.interview ? SHOW : EMPTY
+  const { mode, transition, back } = useVisualMode(() =>
+    {if (props.interview) {
+      return SHOW;
+    } else {
+      return EMPTY;
+    }}
   );
 
-  const save = function(name, interviewer) {
-    // console.log(`save function from index.js, name: ${name}, interviewer: ${interviewer}`);
-    // useVisualMode('SHOW');
+  const save = function(studentName, interviewer, interviewID) {
+    // console.log(`save function from index.js, name: ${studentName}, interviewer: ${interviewer}`);
     const interview = {
-      student: name,
+      student: studentName,
       interviewer
     };
+    props.bookInterview(interviewID, interview);
+    transition(SHOW);
   }
 
   return (
@@ -47,6 +52,7 @@ export default function Appointment(props) {
         onCancel={props.cancel}
         interviewID={props.id}
         interviewer={props.interviewer}
+        interview={props.interview}
         onSave={save}
       />}
     </article>

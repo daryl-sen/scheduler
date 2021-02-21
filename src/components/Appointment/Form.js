@@ -14,12 +14,11 @@ export default function Form(props) {
   };
 
   const cancel = function() {
-    // console.log('cancel function just ran');
     reset();
     props.onCancel();
   }
-
-  console.log('form props:', props);
+  
+  // console.log('form props:', props);
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -34,12 +33,12 @@ export default function Form(props) {
             value={name || ""}
           />
         </form>
-        <InterviewerList interviewers={props.interviewers} value={interviewer} setInterviewer={setInterviewer} />
+        <InterviewerList interviewers={props.interviewers} setInterviewer={setInterviewer} />
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
           <Button onClick={cancel} danger>Cancel</Button>
-          <Button onClick={() => { props.onSave(name, interviewer) }} confirm>Save</Button>
+          <Button onClick={() => { props.onSave(name, interviewer, props.interviewID) }} confirm>Save</Button>
         </section>
       </section>
     </main>

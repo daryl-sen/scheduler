@@ -6,7 +6,6 @@ import DayList from "components/DayList";
 import Appointment from 'components/Appointment';
 import axios from 'axios';
 import {getAppointmentsForDay, getInterviewersForDay} from 'helpers/selectors';
-import {useVisualMode} from "hooks/useVisualMode";
 
 
 
@@ -46,6 +45,8 @@ export default function Application(props) {
   const interviewersForDay = getInterviewersForDay(state, state.day);
 
   const bookInterview = function(id, interview) {
+    console.log(`Received Params: {id: ${id}}, interview: ${interview}`);
+
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -56,9 +57,8 @@ export default function Application(props) {
     };
     setState({
       ...state,
-      appointment
+      appointments
     });
-    console.log('updated state:', state);
   }
 
   const cancel = function() {
@@ -71,7 +71,6 @@ export default function Application(props) {
 
   const formatedAppointments = dailyAppointments.map((item) => {
     // console.log('item: ', item); // gives an obj with id, time, interview
-
 
     let interviewerName;
 
