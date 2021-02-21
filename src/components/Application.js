@@ -11,6 +11,7 @@ import {getAppointmentsForDay, getInterviewersForDay} from 'helpers/selectors';
 
 
 export default function Application(props) {
+  console.log('refreshed');
 
   useEffect(() => {
     const daysURL = 'http://localhost:8001/api/days';
@@ -26,7 +27,7 @@ export default function Application(props) {
         const [days, appointments, interviewers] = all;
         // console.log(interviewers);
         setState((prev) => {
-          return {...prev, days: days.data, appointments: appointments.data, interviewers: interviewers.data };
+            return {...prev, days: days.data, appointments: appointments.data, interviewers: interviewers.data };
         });
       })
       .catch((err) => {
@@ -40,6 +41,8 @@ export default function Application(props) {
     days: [],
     appointments: {}
   });
+
+  // console.log('fresh state:', state);
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const interviewersForDay = getInterviewersForDay(state, state.day);
@@ -55,10 +58,25 @@ export default function Application(props) {
       ...state.appointments,
       [id]: appointment
     };
-    setState({
-      ...state,
-      appointments
-    });
+
+    return axios.put(`http://localhost:8001/api/appointments/${id}`, appointment)
+      .then((resp) => {
+        console.log(resp);
+
+        console.log('updated list on page');
+        
+        // console.log('stale state:', state);
+
+        // this will not run until later
+        setState((prev) => {
+          console.log('current state', prev);
+          console.log('updated state', {...prev, appointments});
+          return {
+            ...prev,
+            appointments
+          }
+        });
+      }) 
   }
 
   const cancel = function() {
