@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import InterviewerList from 'components/InterviewerList';
 import Button from 'components/Button';
 
@@ -6,17 +6,12 @@ export default function Form(props) {
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
 
-  // console.log('Form props:', props.onSave);
+  console.log('Form props:', props);
 
   const reset = function() {
     setName("");
     setInterviewer(null);
   };
-
-  const cancel = function() {
-    reset();
-    props.onCancel();
-  }
   
   // console.log('form props:', props);
 
@@ -37,7 +32,7 @@ export default function Form(props) {
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
-          <Button onClick={cancel} danger>Cancel</Button>
+          <Button onClick={props.onCancel} danger>Cancel</Button>
           <Button onClick={() => { props.onSave(name, interviewer, props.interviewID) }} confirm>Save</Button>
         </section>
       </section>

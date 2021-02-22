@@ -11,7 +11,7 @@ import Confirm from 'components/Appointment/Confirm';
 
 export default function Appointment(props) {
   // MODES
-  const [ EMPTY, SHOW, CREATE, SAVING, CONFIRM, DELETING ] = [ 'EMPTY', 'SHOW', 'CREATE', 'SAVING', 'CONFIRM', 'DELETING' ];
+  const [ EMPTY, SHOW, CREATE, SAVING, CONFIRM, DELETING, EDIT ] = [ 'EMPTY', 'SHOW', 'CREATE', 'SAVING', 'CONFIRM', 'DELETING', 'EDIT' ];
 
 
   // console.log('appointment props:', props);
@@ -48,6 +48,16 @@ export default function Appointment(props) {
     back();
   }
 
+  const edit = function() {
+    console.log('ran edit function');
+    transition(EDIT);
+  }
+  
+  const cancelEdit = function() {
+    
+  }
+  
+
   return (
     <article className="appointment">
       <Header
@@ -59,16 +69,16 @@ export default function Appointment(props) {
           student={props.interview.student}
           interviewer={props.interviewer}
           onDelete={() => {transition(CONFIRM)}}
+          onEdit={edit}
         />
       }
       {mode === CREATE &&
         <Form
           interviewers = {props.interviewers}
-          onSave={props.save}
-          onCancel={props.cancel}
-          interviewID={props.id}
-          interviewer={props.interviewer}
           interview={props.interview}
+          interviewID={props.id}
+          // interviewer={props.interviewer}
+          onCancel={props.cancel}
           onSave={save}
         />
       }
@@ -84,6 +94,16 @@ export default function Appointment(props) {
       }
       {mode === DELETING &&
         <Status messsage={'DELETING....'}/>
+      }
+      {mode === EDIT &&
+        <Form
+          interviewers = {props.interviewers}
+          interview={props.interview}
+          interviewID={props.id}
+          // interviewer={props.interviewer}
+          onCancel={props.cancel}
+          onSave={save}
+        />
       }
     </article>
   );
