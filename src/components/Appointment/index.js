@@ -44,6 +44,10 @@ export default function Appointment(props) {
       });
   }
 
+  const onCancelDelete = function() {
+    back();
+  }
+
   return (
     <article className="appointment">
       <Header
@@ -74,7 +78,7 @@ export default function Appointment(props) {
       {mode === CONFIRM &&
         <Confirm
           message={'Are you sure you want to delete this appointment?'}
-          onCancel={() => {console.log('cancelled')}}
+          onCancel={() => {onCancelDelete()}}
           onConfirm={() => {onConfirmDelete(props.id)}}
         />
       }
