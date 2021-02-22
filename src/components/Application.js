@@ -42,7 +42,7 @@ export default function Application(props) {
     appointments: {}
   });
 
-  // console.log('fresh state:', state);
+  console.log('fresh state:', state);
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const interviewersForDay = getInterviewersForDay(state, state.day);
@@ -59,6 +59,7 @@ export default function Application(props) {
       [id]: appointment
     };
 
+    // this will not run right away, return the promise so the `save` function can do something AFTER this query runs
     return axios.put(`http://localhost:8001/api/appointments/${id}`, appointment)
       .then((resp) => {
         console.log(resp);
@@ -87,6 +88,22 @@ export default function Application(props) {
     setState((prev) => ({ ...prev, day }));
   };
 
+  const cancelInterview = function(interviewID) {
+    console.log('cancelInterview Ran');
+
+    const appointments = {
+      ...state.appointments,
+      [interviewID]: null
+    };
+
+    setState((prev) => {
+      return {
+        ...prev,
+        appointments
+      }
+    });
+  };
+
   const formatedAppointments = dailyAppointments.map((item) => {
     // console.log('item: ', item); // gives an obj with id, time, interview
 
@@ -109,6 +126,7 @@ export default function Application(props) {
         cancel={cancel}
         interviewer={interviewerName}
         interviewers={interviewersForDay}
+        cancelInterview={cancelInterview}
         {...item}
       />
     );
