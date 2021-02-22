@@ -12,6 +12,12 @@ export default function Form(props) {
     setName("");
     setInterviewer(null);
   };
+
+  useEffect(() => {
+    if (props.interview) {
+      setName(props.interview.student)
+    }
+  }, []);
   
   // console.log('form props:', props);
 

@@ -52,7 +52,7 @@ export default function Appointment(props) {
     console.log('ran edit function');
     transition(EDIT);
   }
-  
+
   const cancelEdit = function() {
     
   }
@@ -77,7 +77,7 @@ export default function Appointment(props) {
           interviewers = {props.interviewers}
           interview={props.interview}
           interviewID={props.id}
-          // interviewer={props.interviewer}
+          interviewer={props.interviewer}
           onCancel={props.cancel}
           onSave={save}
         />
