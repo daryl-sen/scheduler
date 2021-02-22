@@ -1,17 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "components/Application.scss";
-// import Button from "components/Button";
-// import DayListItem from "components/DayListItem";
 import DayList from "components/DayList";
-import Appointment from 'components/Appointment';
 import axios from 'axios';
+import Appointment from 'components/Appointment';
 import {getAppointmentsForDay, getInterviewersForDay} from 'helpers/selectors';
+import useApplicationData from 'hooks/useApplicationData';  
 
 
 
 
 export default function Application(props) {
-  console.log('refreshed');
+
+  const {
+    state,
+    setState, // why wasn't this included in compass??? It's kinda important
+    setDay,
+    bookInterview,
+    cancelInterview
+  } = useApplicationData();
+
+  console.log('rerendered');
 
   useEffect(() => {
     const daysURL = 'http://localhost:8001/api/days';
@@ -35,94 +43,24 @@ export default function Application(props) {
       });
 
   }, []);
-  
-  const [state, setState] = useState({
-    day: 'Monday',
-    days: [],
-    appointments: {}
-  });
-
-  console.log('fresh state:', state);
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const interviewersForDay = getInterviewersForDay(state, state.day);
 
-  const bookInterview = function(id, interview) {
-    console.log(`Received Params: {id: ${id}}, interview: ${interview}`);
-
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview }
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
-
-    // this will not run right away, return the promise so the `save` function can do something AFTER this query runs
-    return axios.put(`http://localhost:8001/api/appointments/${id}`, appointment)
-      .then((resp) => {
-        console.log(resp);        
-        // console.log('stale state:', state);
-
-        setState((prev) => {
-          // console.log('current state', prev);
-          // console.log('updated state', {...prev, appointments});
-          return {
-            ...prev,
-            appointments
-          }
-        });
-      }) 
-  }
-
-  const cancelInterview = function(interviewID) {
-    console.log('cancelInterview Ran');
-
-    const appointment = {
-      ...state.appointments[interviewID],
-      interview: null
-    };
-
-    const appointments = {
-      ...state.appointments,
-      [interviewID]: appointment
-    };
-
-    return axios.delete(`http://localhost:8001/api/appointments/${interviewID}`)
-      .then(() => {
-        console.log('delete request sent');
-        setState((prev) => {
-          return {
-            ...prev,
-            appointments
-          }
-        });
-      });
-
-  };
-
+  // useless function??
   const cancel = function() {
     console.log('cancel from application.js');
   };
 
-  const setDay = (day) => {
-    setState((prev) => ({ ...prev, day }));
-  };
-
   const formatedAppointments = dailyAppointments.map((item) => {
     // console.log('item: ', item); // gives an obj with id, time, interview
-
     let interviewerName;
-
     if (item.interview !== null) {
       const interviewerID = item.interview.interviewer;
       interviewerName = state.interviewers[interviewerID].name;
     } else {
       interviewerName = null;
     }
-
-
 
     return (
       <Appointment
