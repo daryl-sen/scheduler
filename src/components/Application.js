@@ -96,12 +96,17 @@ export default function Application(props) {
       [interviewID]: null
     };
 
-    setState((prev) => {
-      return {
-        ...prev,
-        appointments
-      }
-    });
+    return axios.delete(`http://localhost:8001/api/appointments/${interviewID}`)
+      .then(() => {
+        console.log('delete request sent');
+        setState((prev) => {
+          return {
+            ...prev,
+            appointments
+          }
+        });
+      });
+
   };
 
   const formatedAppointments = dailyAppointments.map((item) => {
