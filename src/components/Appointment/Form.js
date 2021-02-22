@@ -6,7 +6,9 @@ export default function Form(props) {
   console.log('Form props:', props);
 
   const [name, setName] = useState(props.name || "");
-  const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  const [interviewer, setInterviewer] = useState(props.interviewerID || null);
+
+  console.log('Form - interviewer:', props.interviewerID);
 
   // not used??
   // const reset = function() {
@@ -34,7 +36,7 @@ export default function Form(props) {
             value={name || ""}
           />
         </form>
-        <InterviewerList interviewers={props.interviewers} setInterviewer={setInterviewer} />
+        <InterviewerList interviewers={props.interviewers} setInterviewer={setInterviewer} interviewer={props.interviewerID} />
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">

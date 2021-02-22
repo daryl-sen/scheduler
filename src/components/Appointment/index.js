@@ -65,6 +65,7 @@ export default function Appointment(props) {
     
   // }
   
+  console.log(props.id)
 
   return (
     <article className="appointment">
