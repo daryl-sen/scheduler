@@ -14,7 +14,7 @@ export default function Appointment(props) {
   const [ EMPTY, SHOW, CREATE, SAVING, CONFIRM, DELETING ] = [ 'EMPTY', 'SHOW', 'CREATE', 'SAVING', 'CONFIRM', 'DELETING' ];
 
 
-  console.log('appointment props:', props);
+  // console.log('appointment props:', props);
 
   const { mode, transition, back } = useVisualMode(() =>
     {if (props.interview) {
