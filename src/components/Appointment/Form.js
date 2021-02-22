@@ -3,24 +3,24 @@ import InterviewerList from 'components/InterviewerList';
 import Button from 'components/Button';
 
 export default function Form(props) {
+  console.log('Form props:', props);
+
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
 
-  console.log('Form props:', props);
+  // not used??
+  // const reset = function() {
+  //   setName("");
+  //   setInterviewer(null);
+  // };
 
-  const reset = function() {
-    setName("");
-    setInterviewer(null);
-  };
-
+  // only execute once
   useEffect(() => {
     if (props.interview) {
       setName(props.interview.student)
     }
   }, []);
   
-  // console.log('form props:', props);
-
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">

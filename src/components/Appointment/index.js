@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import 'components/Appointment/styles.scss';
 import Header from 'components/Appointment/Header';
 import Show from 'components/Appointment/Show';
@@ -60,9 +60,10 @@ export default function Appointment(props) {
     transition(EDIT);
   }
 
-  const cancelEdit = function() {
+  // not used
+  // const cancelEdit = function() {
     
-  }
+  // }
   
 
   return (
