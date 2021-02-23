@@ -45,6 +45,8 @@ export default function Application(props) {
       });
   }, []);
 
+  console.log(state);
+
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const interviewersForDay = getInterviewersForDay(state, state.day);
 
