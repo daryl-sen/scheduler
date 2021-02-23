@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 
 export default function InterviewerList(props) {
 
+  console.log('interviewerlist props:', props);
+
   // InterviewerList.PropTypes = {
   //   interviewers: PropTypes.array.isRequired
   // };
@@ -13,11 +15,11 @@ export default function InterviewerList(props) {
     return (
       <InterviewerListItem
         key={interviewer.id}
-        interviewer={interviewer.name}
-        avatar={interviewer.avatar}
         name={interviewer.name}
+        avatar={interviewer.avatar}
         selected={(interviewer.id === props.interviewer)}
-        setInterviewer={() => props.setInterviewer(interviewer.id)}
+        // interviewer={interviewer.name}
+        setInterviewer={(event) => props.setInterviewer(interviewer.id)}
       />
     );
   });
