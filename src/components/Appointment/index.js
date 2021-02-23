@@ -56,7 +56,7 @@ export default function Appointment(props) {
   }
 
   const edit = function() {
-    console.log('ran edit function');
+    // console.log('ran edit function');
     transition(EDIT);
   }
 
@@ -65,7 +65,7 @@ export default function Appointment(props) {
     
   // }
   
-  console.log(props.id)
+  // console.log(props.id)
 
   return (
     <article className="appointment">
