@@ -38,10 +38,11 @@ export default function Application(props) {
             return {...prev, days: days.data, appointments: appointments.data, interviewers: interviewers.data };
         });
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error.response.status);
+        console.log(error.response.headers);
+        console.log(error.response.data);
       });
-
   }, []);
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
