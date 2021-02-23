@@ -50,9 +50,9 @@ export default function Application(props) {
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const interviewersForDay = getInterviewersForDay(state, state.day);
 
-  // useless function??
+  // why define this function here instead of in form.js?
   const cancel = function() {
-    console.log('cancel from application.js');
+    // console.log('cancel from application.js');
   };
 
   const formatedAppointments = dailyAppointments.map((item) => {
@@ -80,7 +80,7 @@ export default function Application(props) {
   });
 
   formatedAppointments.push((
-    <Appointment key="last" time="5pm" bookInterview={bookInterview} cancel={cancel} /> 
+    <Appointment key="last" time="5pm" /> 
   ));
 
   return (

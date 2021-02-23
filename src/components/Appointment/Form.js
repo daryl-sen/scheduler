@@ -23,13 +23,12 @@ export default function Form(props) {
     props.onSave(name, interviewer)
   }
 
-  // console.log('Form - interviewer:', props.interviewerID);
-
-  // not used??
-  // const reset = function() {
-  //   setName("");
-  //   setInterviewer(null);
-  // };
+  const reset = function() {
+    // console.log('run reset from form.js');
+    setName("");
+    setInterviewer(null);
+    props.onCancel();
+  };
 
   // only execute once
   useEffect(() => {
@@ -49,7 +48,6 @@ export default function Form(props) {
             onChange={(event) => {setName(event.target.value)}}
             value={name || props.name || ""}
             data-testid="student-name-input"
-            // name="name"
           />
         </form>
         <section className="appointment__validation">{error}</section>
@@ -57,7 +55,7 @@ export default function Form(props) {
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
-          <Button onClick={props.onCancel} danger>Cancel</Button>
+          <Button onClick={reset} danger>Cancel</Button>
           <Button onClick={validate} confirm>Save</Button>
         </section>
       </section>

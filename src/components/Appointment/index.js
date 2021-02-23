@@ -60,10 +60,10 @@ export default function Appointment(props) {
     transition(EDIT);
   }
 
-  // not used
-  // const cancelEdit = function() {
-    
-  // }
+  // const reset = function() {
+  //   setName("");
+  //   setInterviewer(null);
+  // };
   
   // console.log(props.id)
 
