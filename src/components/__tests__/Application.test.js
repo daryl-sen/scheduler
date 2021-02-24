@@ -11,7 +11,8 @@ import {
   getByPlaceholderText,
   toBeInTheDocument,
   queryByText,
-  queryByAltText
+  queryByAltText,
+  getByDisplayValue
 } from "@testing-library/react";
 import Application from "components/Application";
 
@@ -81,7 +82,6 @@ describe('Application Tests', () => {
     const appointment = getAllByTestId(container, "appointment").find(
       appointment => queryByText(appointment, "Archie Cohen")
     );
-  
     fireEvent.click(queryByAltText(appointment, "Delete"));
   
     // 4. Check that the confirmation message is shown.
@@ -106,5 +106,41 @@ describe('Application Tests', () => {
     expect(getByText(day, /2 spots remaining/i)).toBeInTheDocument();
 
     // debug();
+  });
+
+  it.only("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
+    // 1. Render the Application.
+    const { container, debug } = render(<Application />);
+
+    // 2. Wait till the appointment for 'Archie Cohen' appears
+    await waitForElement(() => getByText(container, "Archie Cohen"));
+
+    // 3. Click the 'edit' button for the appointment
+    const appointment = getAllByTestId(container, "appointment").find(
+      appointment => queryByText(appointment, "Archie Cohen")
+    );
+    fireEvent.click(queryByAltText(appointment, "Edit"));
+
+    // 4. Check that the form renders with 'Archie Cohen" prefilled
+    expect(getByDisplayValue(appointment, "Archie Cohen")).toBeInTheDocument();
+    // console.log(prettyDOM(appointment));
+
+    // 5. Change the appointment name and interviewer
+    fireEvent.change(getByDisplayValue(appointment, "Archie Cohen"), {
+      target: { value: "Archie Cohen 2"}
+    });
+    fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
+
+    // 6. Click on the save button to save the changes
+    fireEvent.click(getByText(appointment, "Save"));
+
+    // 7. Check that the 'saving' status is displayed
+    await waitForElement(() => getByText(appointment, "Archie Cohen 2"));
+    // console.log(prettyDOM(appointment));
+
+    // 8. Check for the new name and interviewer in the appointment
+    expect(getByText(appointment, "Archie Cohen 2")).toBeInTheDocument();
+    expect(getByText(appointment, "Sylvia Palmer")).toBeInTheDocument();
+
   });
 });
