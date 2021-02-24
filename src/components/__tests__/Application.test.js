@@ -12,9 +12,11 @@ import {
   toBeInTheDocument,
   queryByText,
   queryByAltText,
-  getByDisplayValue
+  getByDisplayValue,
+  mockRejectedValueOnce
 } from "@testing-library/react";
 import Application from "components/Application";
+import axios from "axios";
 
 afterEach(cleanup);
 
@@ -71,7 +73,7 @@ describe('Application Tests', () => {
     expect(getByText(day, /no spots remaining/i)).toBeInTheDocument();
   });
 
-  it("loads data, cancels an interview and increases the spots remaining for Monday by 1", async () => {
+  xit("loads data, cancels an interview and increases the spots remaining for Monday by 1", async () => {
     // 1. Render the Application.
     const { container, debug } = render(<Application />);
   
@@ -108,7 +110,7 @@ describe('Application Tests', () => {
     // debug();
   });
 
-  it.only("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
+  xit("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
     // 1. Render the Application.
     const { container, debug } = render(<Application />);
 
@@ -141,6 +143,13 @@ describe('Application Tests', () => {
     // 8. Check for the new name and interviewer in the appointment
     expect(getByText(appointment, "Archie Cohen 2")).toBeInTheDocument();
     expect(getByText(appointment, "Sylvia Palmer")).toBeInTheDocument();
+  });
 
+  it.only("shows the save error when failing to save an appointment", () => {
+    axios.put.mockRejectedValueOnce();
+  });
+
+  it("shows the delete error when failing to delete an existing appointment", () => {
+    // axios.put.mockRejectedValueOnce();
   });
 });
