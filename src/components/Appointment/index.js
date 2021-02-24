@@ -68,7 +68,7 @@ export default function Appointment(props) {
   // console.log(props.id)
 
   return (
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment">
       <Header
         time={props.time}
       />
