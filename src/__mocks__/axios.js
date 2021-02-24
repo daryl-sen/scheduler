@@ -89,5 +89,11 @@ export default {
       status: 204,
       statusText: "No Content"
     })
+  },
+  delete: function() {
+    return Promise.resolve({
+      status: 204,
+      statusText: "No Content"
+    })
   }
 };

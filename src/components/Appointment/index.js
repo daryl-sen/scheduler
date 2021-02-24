@@ -102,7 +102,7 @@ export default function Appointment(props) {
         />
       }
       {mode === DELETING &&
-        <Status messsage={'DELETING....'}/>
+        <Status message={'DELETING....'}/>
       }
       {mode === EDIT &&
         <Form
