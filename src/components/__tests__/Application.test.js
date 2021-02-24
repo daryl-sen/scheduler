@@ -47,16 +47,16 @@ describe('Application Tests', () => {
 
     // check for the new appointment
     await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
-    debug();
+    // debug();
 
-    // const day = getAllByTestId(container, "day").find(day =>
-    //   queryByText(day, "Monday")
-    // );
+    const day = getAllByTestId(container, "day").find(day =>
+      queryByText(day, "Monday")
+    );
     
-    // // console.log(prettyDOM(day));
+    // console.log(prettyDOM(day));
 
-    // expect(getByText(day, /no spots remaining/i)).toBeInTheDocument();
-    // // how?? It started with 3 spots available, we're adding one more appointment, and now it's down to zero??
+    expect(getByText(day, /no spots remaining/i)).toBeInTheDocument();
+    // how?? It started with 3 spots available, we're adding one more appointment, and now it's down to zero??
   });
 
   xit("loads data, cancels an interview and increases the spots remaining for Monday by 1" , async () => {

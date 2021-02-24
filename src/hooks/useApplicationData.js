@@ -9,7 +9,7 @@ export default function useApplicationData() {
 
     for (const day of state.days) {
       // number of spots for this specific day
-      let spots = 5;
+      let spots = day.appointments.length; // made this dynamic so it won't show the wrong info when the number of appointments per day changes
 
       // list of appointments associated with this day
       const appointmentIDs = day.appointments;
