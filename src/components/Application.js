@@ -19,7 +19,7 @@ export default function Application(props) {
     cancelInterview
   } = useApplicationData();
 
-  console.log('rerendered');
+  // console.log('rerendered');
 
   useEffect(() => {
     const daysURL = 'http://localhost:8001/api/days';
@@ -39,13 +39,11 @@ export default function Application(props) {
         });
       })
       .catch((error) => {
-        console.log(error.response.status);
-        console.log(error.response.headers);
-        console.log(error.response.data);
+        console.log(error)
       });
   }, []);
 
-  console.log(state);
+  // console.log(state);
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const interviewersForDay = getInterviewersForDay(state, state.day);
