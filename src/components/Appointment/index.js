@@ -56,16 +56,12 @@ export default function Appointment(props) {
   }
 
   const edit = function() {
-    // console.log('ran edit function');
     transition(EDIT);
   }
 
-  // const reset = function() {
-  //   setName("");
-  //   setInterviewer(null);
-  // };
-  
-  // console.log(props.id)
+  const onCancel = function() {
+    back();
+  };
 
   return (
     <article className="appointment" data-testid="appointment">
@@ -87,7 +83,7 @@ export default function Appointment(props) {
           interview={props.interview}
           interviewID={props.id}
           interviewer={props.interviewer}
-          onCancel={props.cancel}
+          onCancel={onCancel}
           onSave={save}
         />
       }
@@ -110,7 +106,7 @@ export default function Appointment(props) {
           interview={props.interview}
           interviewID={props.id}
           // interviewer={props.interviewer}
-          onCancel={props.cancel}
+          onCancel={onCancel}
           onSave={save}
         />
       }
