@@ -34,7 +34,8 @@ export default function Form(props) {
   // only execute once
   useEffect(() => {
     if (props.interview) {
-      setName(props.interview.student)
+      setName(props.interview.student);
+      setInterviewer(props.interview.interviewer);
     }
   }, []);
   
