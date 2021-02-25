@@ -22,7 +22,7 @@ afterEach(cleanup);
 
 describe('Application Tests', () => {
 
-  xit("changes the schedule when a new day is selected", async () => {
+  it("changes the schedule when a new day is selected", async () => {
     const { getByText } = render(<Application />);
   
     await waitForElement(() => getByText("Monday"));
@@ -32,7 +32,7 @@ describe('Application Tests', () => {
     expect(getByText("Leopold Silvers")).toBeInTheDocument();
   });
   
-  xit("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
+  it("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
     // Render the Application.
     const { container, debug } = render(<Application />);
     
@@ -73,7 +73,7 @@ describe('Application Tests', () => {
     expect(getByText(day, /no spots remaining/i)).toBeInTheDocument();
   });
 
-  xit("loads data, cancels an interview and increases the spots remaining for Monday by 1", async () => {
+  it("loads data, cancels an interview and increases the spots remaining for Monday by 1", async () => {
     // 1. Render the Application.
     const { container, debug } = render(<Application />);
   
@@ -110,7 +110,7 @@ describe('Application Tests', () => {
     // debug();
   });
 
-  xit("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
+  it("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
     // 1. Render the Application.
     const { container, debug } = render(<Application />);
 
@@ -145,7 +145,7 @@ describe('Application Tests', () => {
     expect(getByText(appointment, "Sylvia Palmer")).toBeInTheDocument();
   });
 
-  it.only("shows the save error when failing to save an appointment", () => {
+  it("shows the save error when failing to save an appointment", () => {
     axios.put.mockRejectedValueOnce();
   });
 
