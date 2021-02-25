@@ -3,7 +3,6 @@ import InterviewerList from 'components/InterviewerList';
 import Button from 'components/Button';
 
 export default function Form(props) {
-  // console.log('Form props:', props);
 
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewerID || null);
@@ -39,7 +38,6 @@ export default function Form(props) {
     }
   }, []);
   
-  console.log(interviewer);
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
@@ -54,7 +52,7 @@ export default function Form(props) {
           />
         </form>
         <section className="appointment__validation">{error}</section>
-        <InterviewerList interviewers={props.interviewers} setInterviewer={setInterviewer} interviewer={interviewer} />
+        <InterviewerList interviewers={props.interviewers} setInterviewer={setInterviewer} interviewer={interviewer || props.interviewer} />
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">

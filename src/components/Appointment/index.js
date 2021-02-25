@@ -14,9 +14,6 @@ export default function Appointment(props) {
   // MODES
   const [ EMPTY, SHOW, CREATE, SAVING, CONFIRM, DELETING, EDIT, ERROR_SAVE, ERROR_DELETE ] = [ 'EMPTY', 'SHOW', 'CREATE', 'SAVING', 'CONFIRM', 'DELETING', 'EDIT', 'ERROR_SAVE', 'ERROR_DELETE' ];
 
-
-  // console.log('appointment props:', props);
-
   const { mode, transition, back } = useVisualMode(() =>
     {if (props.interview) {
       return SHOW;
@@ -82,7 +79,7 @@ export default function Appointment(props) {
           interviewers = {props.interviewers}
           interview={props.interview}
           interviewID={props.id}
-          interviewer={props.interviewer}
+          // interviewer={props.interview.interviewer}
           onCancel={onCancel}
           onSave={save}
         />
@@ -105,7 +102,7 @@ export default function Appointment(props) {
           interviewers = {props.interviewers}
           interview={props.interview}
           interviewID={props.id}
-          // interviewer={props.interviewer}
+          interviewer={props.interview.interviewer}
           onCancel={onCancel}
           onSave={save}
         />
