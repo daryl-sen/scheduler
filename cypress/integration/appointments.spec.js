@@ -33,15 +33,33 @@ describe('Appointments', () => {
       .click();
 
     // Sees the booked appointment
-    // cy.get("[data-testid=appointment]")
-    //   .eq(1)
-    //   .get('main')
-    //   .first()
-    //   .should("have.class", ".appointment__card--show");
-    //   // .contains('Lydia Miller-Jones')
     cy.contains(".appointment__card--show", "Lydia Miller-Jones");
     cy.contains(".appointment__card--show", "Sylvia Palmer");
 
+  });
+
+  it.only("should edit an interview", () => {
+    // Go to the target appointment
+    cy.contains(".appointment__card--show", "Archie Cohen")
+      .get('[alt="Edit"]')
+      .click({force: true})
+
+    // Change appointment name
+    cy.get("[data-testid=student-name-input]")
+      .clear()
+      .type("Lydia Miller-Jones")
+    
+    // Changes the name and interviewer
+      .get('[alt="Tori Malcolm"]')
+      .click()
+
+    // Clicks the save button
+    cy.contains('Save')
+      .click();
+    
+    // Sees the edit to the appointment
+    cy.contains(".appointment__card--show", "Lydia Miller-Jones")
+      .contains("Tori Malcolm");
   });
 
 });
