@@ -24,9 +24,11 @@ export default function Form(props) {
   }
 
   const reset = function() {
-    // console.log('run reset from form.js');
-    setName("");
+    setError(null);
+
+    setName('');
     setInterviewer(null);
+
     props.onCancel();
   };
 
