@@ -7,9 +7,9 @@ An online schedule management app for making, editing, and deleting appointments
 Install dependencies with `npm install`.
 
 ## Screenshots
-!["Interface for creating a new shortened link"](https://github.com/daryl-sen/tinyapp/blob/master/documents/1.png?raw=true)
-!["Interface for updating a saved URL"](https://github.com/daryl-sen/tinyapp/blob/master/documents/2.png?raw=true)
-!["Interface for homepage showing all saved URLs"](https://github.com/daryl-sen/tinyapp/blob/master/documents/3.png?raw=true)
+!["Interface for creating a new shortened link"](https://github.com/daryl-sen/scheduler/blob/master/documents/1.png?raw=true)
+!["Interface for updating a saved URL"](https://github.com/daryl-sen/scheduler/blob/master/documents/2.png?raw=true)
+!["Interface for homepage showing all saved URLs"](https://github.com/daryl-sen/scheduler/blob/master/documents/3.png?raw=true)
 
 ## Dependencies
 * axios (0.21.1)
