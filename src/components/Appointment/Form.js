@@ -18,20 +18,16 @@ export default function Form(props) {
       return;
     }
     setError('');
-
     props.onSave(name, interviewer)
   }
 
   const reset = function() {
     setError(null);
-
     setName('');
     setInterviewer(null);
-
     props.onCancel();
   };
 
-  // only execute once
   useEffect(() => {
     if (props.interview) {
       setName(props.interview.student);

@@ -6,22 +6,18 @@ import Appointment from 'components/Appointment';
 import {getAppointmentsForDay, getInterviewersForDay} from 'helpers/selectors';
 import useApplicationData from 'hooks/useApplicationData';  
 
-
-
-
 export default function Application(props) {
 
   const {
     state,
-    setState, // why wasn't this included in compass??? It's kinda important
+    setState,
     setDay,
     bookInterview,
     cancelInterview
   } = useApplicationData();
 
-  // console.log('rerendered');
-
   useEffect(() => {
+
     const daysURL = 'http://localhost:8001/api/days';
     const appointmentsURL = 'http://localhost:8001/api/appointments';
     const interviewersURL = 'http://localhost:8001/api/interviewers';
@@ -43,18 +39,11 @@ export default function Application(props) {
       });
   }, []);
 
-  // console.log(state);
-
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const interviewersForDay = getInterviewersForDay(state, state.day);
 
-  // why define this function here instead of in form.js?
-  const cancel = function() {
-    // console.log('cancel from application.js');
-  };
-
   const formatedAppointments = dailyAppointments.map((item) => {
-    // console.log('item: ', item); // gives an obj with id, time, interview
+
     let interviewerName;
     if (item.interview !== null) {
       const interviewerID = item.interview.interviewer;
@@ -108,4 +97,4 @@ export default function Application(props) {
       </section>
     </main>
   );
-}
+};
