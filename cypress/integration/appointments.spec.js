@@ -38,10 +38,9 @@ describe('Appointments', () => {
 
   });
 
-  it.only("should edit an interview", () => {
+  it("should edit an interview", () => {
     // Go to the target appointment
-    cy.contains(".appointment__card--show", "Archie Cohen")
-      .get('[alt="Edit"]')
+    cy.get('[alt="Edit"]')
       .click({force: true})
 
     // Change appointment name
@@ -60,6 +59,30 @@ describe('Appointments', () => {
     // Sees the edit to the appointment
     cy.contains(".appointment__card--show", "Lydia Miller-Jones")
       .contains("Tori Malcolm");
+  });
+
+  it.only('should cancel an interview', () => {
+    // Clicks the delete button for the existing appointment
+    cy.get('[alt="Delete"]')
+      .click({force: true})
+    
+    // Checks for the confirmation message
+    cy.contains('Are you sure you want to delete this appointment?')
+    
+    // Clicks the confirm button
+    cy.contains('button', 'Confirm')  
+      .click()
+    
+    // Checks for the deleting status
+    cy.contains('DELETING...')
+      .should('exist');
+    
+    cy.contains("Deleting").should("not.exist");
+    
+    // Sees that the appointment slot is empty
+    cy.contains(".appointment__card--show", "Archie Cohen")
+    .should("not.exist");
+    
   });
 
 });
