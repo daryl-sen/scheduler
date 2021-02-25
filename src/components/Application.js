@@ -57,7 +57,6 @@ export default function Application(props) {
         key={item.id}
         id={item.id}
         bookInterview={bookInterview}
-        cancel={cancel}
         interviewer={interviewerName}
         interviewers={interviewersForDay}
         cancelInterview={cancelInterview}

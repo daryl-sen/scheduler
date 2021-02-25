@@ -61,7 +61,7 @@ describe('Appointments', () => {
       .contains("Tori Malcolm");
   });
 
-  it.only('should cancel an interview', () => {
+  it('should cancel an interview', () => {
     // Clicks the delete button for the existing appointment
     cy.get('[alt="Delete"]')
       .click({force: true})
