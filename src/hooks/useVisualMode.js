@@ -16,9 +16,10 @@ export function useVisualMode(initial) {
   };
 
   const back = function() {
-    if (history.length > 1) {
-      history.pop();
-      setMode(history[history.length - 1]);
+    const newHistory = [...history]
+    if (newHistory.length > 1) {
+      newHistory.pop();
+      setMode(newHistory[newHistory.length - 1]);
     }
   };
 
