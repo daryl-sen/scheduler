@@ -29,7 +29,6 @@ export default function Application(props) {
     ])
       .then((all) => {
         const [days, appointments, interviewers] = all;
-        // console.log(interviewers);
         setState((prev) => {
             return {...prev, days: days.data, appointments: appointments.data, interviewers: interviewers.data };
         });
