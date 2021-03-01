@@ -1,7 +1,29 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from 'axios';
 
 export default function useApplicationData() {
+
+  useEffect(() => {
+
+    const daysURL = 'http://localhost:8001/api/days';
+    const appointmentsURL = 'http://localhost:8001/api/appointments';
+    const interviewersURL = 'http://localhost:8001/api/interviewers';
+
+    Promise.all([
+      axios.get(daysURL),
+      axios.get(appointmentsURL),
+      axios.get(interviewersURL)
+    ])
+      .then((all) => {
+        const [days, appointments, interviewers] = all;
+        setState((prev) => {
+            return {...prev, days: days.data, appointments: appointments.data, interviewers: interviewers.data };
+        });
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+  }, []);
 
   const calculateSpots = function(appointments, state) {
     // stale state (prev) is OK, because this is only used to get the appointment IDs associated with a specific day. That does NOT change.
