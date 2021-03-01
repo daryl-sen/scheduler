@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import InterviewerList from 'components/InterviewerList';
 import Button from 'components/Button';
 
 export default function Form(props) {
 
-  const [name, setName] = useState(props.name || "");
-  const [interviewer, setInterviewer] = useState(props.interviewerID || null);
+  const [name, setName] = useState(props.name || (props.interview && props.interview.student) || "");
+  const [interviewer, setInterviewer] = useState(props.interviewerID || (props.interview && props.interview.interviewer) || null);
   const [error, setError] = useState("");
 
   const validate = function() {
@@ -28,12 +28,12 @@ export default function Form(props) {
     props.onCancel();
   };
 
-  useEffect(() => {
-    if (props.interview) {
-      setName(props.interview.student);
-      setInterviewer(props.interview.interviewer);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (props.interview) {
+  //     setName(props.interview.student);
+  //     setInterviewer(props.interview.interviewer);
+  //   }
+  // }, []);
   
   return (
     <main className="appointment__card appointment__card--create">
