@@ -61,8 +61,6 @@ export default function useApplicationData() {
 
     return axios.delete(`http://localhost:8001/api/appointments/${interviewID}`)
       .then((resp) => {
-        console.log(resp);
-        console.log('delete request sent');
         setState((prev) => {
           const days = calculateSpots(appointments, prev);
           return {

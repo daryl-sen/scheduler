@@ -38,11 +38,9 @@ describe('Application Tests', () => {
     
     // wait for an element with the name archie cohen to appear
     await waitForElement(() => getByText(container, "Archie Cohen"));
-    // console.log(prettyDOM(container));
 
     // look for the first appointment, which is empty
     const appointment = getAllByTestId(container, "appointment")[0];
-    // console.log(prettyDOM(appointment));
 
     // Click the "Add" button on the first empty appointment.
     fireEvent.click(getByAltText(appointment, 'Add'));
@@ -69,7 +67,6 @@ describe('Application Tests', () => {
       queryByText(day, "Monday")
     );
     
-    // console.log(prettyDOM(day));
     expect(getByText(day, /no spots remaining/i)).toBeInTheDocument();
   });
 
@@ -94,17 +91,14 @@ describe('Application Tests', () => {
 
     // 6. Check that the element with the text "Deleting" is displayed.
     expect(getByText(appointment, /deleting/i)).toBeInTheDocument();
-    // console.log(prettyDOM(appointment));
 
     // 7. Wait until the element with the "Add" button is displayed.
     await waitForElement(() => getByAltText(appointment, 'Add'));
-    // console.log(prettyDOM(appointment));
 
     // 8. Check that the DayListItem with the text "Monday" also has the text "2 spots remaining".
     const day = getAllByTestId(container, "day").find(day =>
       queryByText(day, "Monday")
     );
-    // console.log(prettyDOM(container));
     expect(getByText(day, /2 spots remaining/i)).toBeInTheDocument();
 
     // debug();
@@ -125,7 +119,6 @@ describe('Application Tests', () => {
 
     // 4. Check that the form renders with 'Archie Cohen" prefilled
     expect(getByDisplayValue(appointment, "Archie Cohen")).toBeInTheDocument();
-    // console.log(prettyDOM(appointment));
 
     // 5. Change the appointment name and interviewer
     fireEvent.change(getByDisplayValue(appointment, "Archie Cohen"), {
@@ -138,7 +131,6 @@ describe('Application Tests', () => {
 
     // 7. Check that the 'saving' status is displayed
     await waitForElement(() => getByText(appointment, "Archie Cohen 2"));
-    // console.log(prettyDOM(appointment));
 
     // 8. Check for the new name and interviewer in the appointment
     expect(getByText(appointment, "Archie Cohen 2")).toBeInTheDocument();
